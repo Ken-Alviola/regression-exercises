@@ -20,7 +20,7 @@ def new_telco_data():
     # Create SQL query.
     sql_query = ''' select customer_id, monthly_charges, tenure, total_charges
                     from customers
-                    where contract_type_id = 2;
+                    where contract_type_id = 3;
                     '''
     
     # Read in DataFrame from Codeup db.
@@ -46,7 +46,8 @@ def acquire_telco(cached=True):
         
         # If csv file exists or cached == True, read in data from csv.
         df = pd.read_csv('telco_df.csv', index_col=1)
-        df = df.drop(columns='Unnamed: 0')
+        df = df.iloc[:,1:]
+        # df = df.drop(columns='Unnamed: 0')
         
     return df
 
@@ -75,7 +76,7 @@ def split_telco(df, stratify_by=None):
     
     return train, validate, test
 
-def wrangle_telco():
+def wrangle_telco(split=False):
     '''
     wrangle_telco will read in our student grades as a pandas dataframe,
     clean the data
@@ -83,5 +84,8 @@ def wrangle_telco():
     return: train, validate, test sets of pandas dataframes from telco, stratified on total_charges
     '''
     df = clean_telco(acquire_telco())
-    return split_telco(df)
+    if split == True:
+        return split_telco(df)
+    else:
+        return df
 
