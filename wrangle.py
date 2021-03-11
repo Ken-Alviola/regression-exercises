@@ -81,7 +81,7 @@ def wrangle_telco(split=False):
     wrangle_telco will read in our student grades as a pandas dataframe,
     clean the data
     split the data
-    return: train, validate, test sets of pandas dataframes from telco, stratified on total_charges
+    return: train, validate, test sets of pandas dataframes from telco if split = True
     '''
     df = clean_telco(acquire_telco())
     if split == True:
